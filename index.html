@@ -633,7 +633,7 @@
             color: var(--gray);
         }
         
-        /* Careers Section */
+        /* Careers Section - ENHANCED */
         .careers {
             background-color: #f5f5f5;
         }
@@ -776,7 +776,7 @@
             transform: rotate(180deg);
         }
         
-        /* Career Forms */
+        /* Career Forms - ENHANCED */
         .career-form-container {
             background: #f9f9f9;
             padding: 30px;
@@ -1792,7 +1792,7 @@ Results-driven construction manager with years of experience in overseeing const
         </section>
     </div>
 
-    <!-- Careers Page -->
+    <!-- Careers Page - ENHANCED -->
     <div id="careers" class="page-content">
         <section class="careers">
             <div class="container">
@@ -1862,7 +1862,7 @@ Results-driven construction manager with years of experience in overseeing const
                         
                         <div class="career-form-container">
                             <h3>Graduate Training Program Application Form</h3>
-                            <form id="graduateForm" onsubmit="submitForm(event, 'Graduate Training Program Application')">
+                            <form id="graduateForm" onsubmit="submitCareerForm(event, 'Graduate Training Program Application')">
                                 <div class="form-group">
                                     <label for="gradName">Full Name *</label>
                                     <input type="text" id="gradName" name="gradName" class="form-control" required>
@@ -1955,7 +1955,7 @@ Results-driven construction manager with years of experience in overseeing const
                         
                         <div class="career-form-container">
                             <h3>Internship Application Form</h3>
-                            <form id="internshipForm" onsubmit="submitForm(event, 'Internship Application')">
+                            <form id="internshipForm" onsubmit="submitCareerForm(event, 'Internship Application')">
                                 <div class="form-group">
                                     <label for="intName">Full Name *</label>
                                     <input type="text" id="intName" name="intName" class="form-control" required>
@@ -2049,7 +2049,7 @@ Results-driven construction manager with years of experience in overseeing const
                         
                         <div class="career-form-container">
                             <h3>Subcontractor Prequalification Form</h3>
-                            <form id="subcontractForm" onsubmit="submitForm(event, 'Subcontractor Prequalification')">
+                            <form id="subcontractForm" onsubmit="submitCareerForm(event, 'Subcontractor Prequalification')">
                                 <div class="form-group">
                                     <label for="subName">Company Name *</label>
                                     <input type="text" id="subName" name="subName" class="form-control" required>
@@ -2548,7 +2548,7 @@ Results-driven construction manager with years of experience in overseeing const
         }
         
         // Enhanced form submission function with validation and scrolling
-        function submitForm(event, formType) {
+        function submitCareerForm(event, formType) {
             event.preventDefault();
             
             const form = event.target;
