@@ -85,11 +85,13 @@
             letter-spacing: 1px;
             transition: var(--transition);
             cursor: pointer;
+            border-radius: 4px;
         }
         
         .btn:hover {
             background-color: #b89454;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .btn-outline {
@@ -258,7 +260,7 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.ibb.co/SCYQLgY/7e5f9863-ebe1-46c7-84b4-355415b07d5f.jpg" alt="7e5f9863-ebe1-46c7-84b4-355415b07d5f" border="0"');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.ibb.co/SCYQLgY/7e5f9863-ebe1-46c7-84b4-355415b07d5f.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -712,13 +714,18 @@
             margin: 0 auto 30px;
         }
         
-        /* Careers Dropdown Sections - UPDATED */
+        /* Careers Dropdown Sections - ENHANCED */
         .career-dropdown {
             margin-bottom: 40px;
             background: white;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .career-dropdown.active {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
         
         .career-dropdown-header {
@@ -775,6 +782,7 @@
             padding: 30px;
             border-radius: 8px;
             margin-top: 30px;
+            position: relative;
         }
         
         .career-form-container h3 {
@@ -786,6 +794,7 @@
         
         .form-group {
             margin-bottom: 20px;
+            position: relative;
         }
         
         .form-group label {
@@ -895,6 +904,48 @@
             margin-bottom: 10px;
         }
         
+        /* Form validation styles */
+        .form-control.error {
+            border-color: #e74c3c;
+        }
+        
+        .form-control.success {
+            border-color: #2ecc71;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            background-color: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
         /* Testimonials Section */
         .testimonials {
             background-color: #f5f5f5;
@@ -971,6 +1022,57 @@
             color: var(--primary);
             margin-right: 15px;
             margin-top: 5px;
+        }
+        
+        /* Enhanced Contact Form */
+        .contact-form form {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .contact-form .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .contact-form .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.2);
+        }
+        
+        .contact-form textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .contact-form .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: block;
+            width: 100%;
+            font-size: 1rem;
+        }
+        
+        .contact-form .submit-btn:hover {
+            background: #b89454;
+            transform: translateY(-2px);
         }
         
         /* Footer */
@@ -1199,7 +1301,7 @@
     <header>
         <div class="container header-container">
             <a href="#" class="logo" onclick="showPage('home')">
-                <img src="https://i.ibb.co/999KW34C/Color-logo-no-background.png" alt="Color-logo-no-background" border="0" 
+                <img src="https://i.ibb.co/999KW34C/Color-logo-no-background.png" 
                      alt="Kanho Construction Ltd." 
                      class="logo-image">
             </a>
@@ -1764,47 +1866,61 @@ Results-driven construction manager with years of experience in overseeing const
                                 <div class="form-group">
                                     <label for="gradName">Full Name *</label>
                                     <input type="text" id="gradName" name="gradName" class="form-control" required>
+                                    <div class="error-message" id="gradNameError">Please enter your full name</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="gradContact">Phone Number *</label>
                                     <input type="tel" id="gradContact" name="gradContact" class="form-control" required>
+                                    <div class="error-message" id="gradContactError">Please enter a valid phone number</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="gradEmail">Email Address *</label>
                                     <input type="email" id="gradEmail" name="gradEmail" class="form-control" required>
+                                    <div class="error-message" id="gradEmailError">Please enter a valid email address</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="gradResume">Upload Resume (PDF, DOC, DOCX) *</label>
                                     <input type="file" id="gradResume" name="gradResume" class="file-input" accept=".pdf,.doc,.docx" required>
+                                    <div class="error-message" id="gradResumeError">Please upload your resume</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="gradAcademic">Upload Academic Documents (Transcripts, Degree Certificates) *</label>
                                     <input type="file" id="gradAcademic" name="gradAcademic" class="file-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
+                                    <div class="error-message" id="gradAcademicError">Please upload your academic documents</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="gradID">Upload Identification Document (Passport, Driver's License, ID Card) *</label>
                                     <input type="file" id="gradID" name="gradID" class="file-input" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <div class="error-message" id="gradIDError">Please upload your identification document</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="gradCover">Cover Letter *</label>
                                     <small>Please clarify your long-term career goals, which departments you are most interested in rotating through, and why you are a strong candidate for our Graduate Training Program.</small>
                                     <textarea id="gradCover" name="gradCover" class="form-control" rows="5" required></textarea>
+                                    <div class="error-message" id="gradCoverError">Please write a cover letter</div>
                                 </div>
                                 
                                 <div class="recaptcha-container">
                                     <label class="recaptcha-checkbox">
-                                        <input type="checkbox" required>
+                                        <input type="checkbox" id="gradRecaptcha" required>
                                         <span>I'm not a robot</span>
                                     </label>
+                                    <div class="error-message" id="gradRecaptchaError">Please verify you're not a robot</div>
                                 </div>
                                 
-                                <button type="submit" class="submit-btn">Submit Application</button>
+                                <div class="success-message" id="graduateSuccess">
+                                    Thank you for your application! We will review your information and get back to you soon.
+                                </div>
+                                
+                                <button type="submit" class="submit-btn" id="graduateSubmitBtn">
+                                    <span id="graduateSubmitText">Submit Application</span>
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -1843,21 +1959,25 @@ Results-driven construction manager with years of experience in overseeing const
                                 <div class="form-group">
                                     <label for="intName">Full Name *</label>
                                     <input type="text" id="intName" name="intName" class="form-control" required>
+                                    <div class="error-message" id="intNameError">Please enter your full name</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="intContact">Phone Number *</label>
                                     <input type="tel" id="intContact" name="intContact" class="form-control" required>
+                                    <div class="error-message" id="intContactError">Please enter a valid phone number</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="intEmail">Email Address *</label>
                                     <input type="email" id="intEmail" name="intEmail" class="form-control" required>
+                                    <div class="error-message" id="intEmailError">Please enter a valid email address</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="intResume">Upload Resume (PDF, DOC, DOCX) *</label>
                                     <input type="file" id="intResume" name="intResume" class="file-input" accept=".pdf,.doc,.docx" required>
+                                    <div class="error-message" id="intResumeError">Please upload your resume</div>
                                 </div>
                                 
                                 <div class="form-group">
@@ -1868,22 +1988,31 @@ Results-driven construction manager with years of experience in overseeing const
                                 <div class="form-group">
                                     <label for="intID">Upload Identification Document (Passport, Driver's License, ID Card) *</label>
                                     <input type="file" id="intID" name="intID" class="file-input" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <div class="error-message" id="intIDError">Please upload your identification document</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="intCover">Cover Letter *</label>
                                     <small>Please clarify your area of interest (e.g., civil engineering, site management), your available start date, and the duration of your internship.</small>
                                     <textarea id="intCover" name="intCover" class="form-control" rows="5" required></textarea>
+                                    <div class="error-message" id="intCoverError">Please write a cover letter</div>
                                 </div>
                                 
                                 <div class="recaptcha-container">
                                     <label class="recaptcha-checkbox">
-                                        <input type="checkbox" required>
+                                        <input type="checkbox" id="intRecaptcha" required>
                                         <span>I'm not a robot</span>
                                     </label>
+                                    <div class="error-message" id="intRecaptchaError">Please verify you're not a robot</div>
                                 </div>
                                 
-                                <button type="submit" class="submit-btn">Submit Application</button>
+                                <div class="success-message" id="internshipSuccess">
+                                    Thank you for your application! We will review your information and get back to you soon.
+                                </div>
+                                
+                                <button type="submit" class="submit-btn" id="internshipSubmitBtn">
+                                    <span id="internshipSubmitText">Submit Application</span>
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -1924,36 +2053,43 @@ Results-driven construction manager with years of experience in overseeing const
                                 <div class="form-group">
                                     <label for="subName">Company Name *</label>
                                     <input type="text" id="subName" name="subName" class="form-control" required>
+                                    <div class="error-message" id="subNameError">Please enter your company name</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="subContact">Primary Contact Person & Title *</label>
                                     <input type="text" id="subContact" name="subContact" class="form-control" required>
+                                    <div class="error-message" id="subContactError">Please enter contact person details</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="subPhone">Business Phone Number *</label>
                                     <input type="tel" id="subPhone" name="subPhone" class="form-control" required>
+                                    <div class="error-message" id="subPhoneError">Please enter a valid phone number</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="subEmail">Business Email Address *</label>
                                     <input type="email" id="subEmail" name="subEmail" class="form-control" required>
+                                    <div class="error-message" id="subEmailError">Please enter a valid email address</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="subTrade">Primary Trade/Specialization *</label>
                                     <input type="text" id="subTrade" name="subTrade" class="form-control" placeholder="e.g., Electrical, Concrete" required>
+                                    <div class="error-message" id="subTradeError">Please enter your primary trade</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="subResume">Company Profile / Capability Statement *</label>
                                     <input type="file" id="subResume" name="subResume" class="file-input" accept=".pdf,.doc,.docx" required>
+                                    <div class="error-message" id="subResumeError">Please upload your company profile</div>
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="subLicense">Upload Business License/Registration *</label>
                                     <input type="file" id="subLicense" name="subLicense" class="file-input" accept=".pdf,.jpg,.jpeg,.png" required>
+                                    <div class="error-message" id="subLicenseError">Please upload your business license</div>
                                 </div>
                                 
                                 <div class="form-group">
@@ -1969,12 +2105,19 @@ Results-driven construction manager with years of experience in overseeing const
                                 
                                 <div class="recaptcha-container">
                                     <label class="recaptcha-checkbox">
-                                        <input type="checkbox" required>
+                                        <input type="checkbox" id="subRecaptcha" required>
                                         <span>I'm not a robot</span>
                                     </label>
+                                    <div class="error-message" id="subRecaptchaError">Please verify you're not a robot</div>
                                 </div>
                                 
-                                <button type="submit" class="submit-btn">Submit Prequalification</button>
+                                <div class="success-message" id="subcontractSuccess">
+                                    Thank you for your prequalification submission! We will review your information and get back to you soon.
+                                </div>
+                                
+                                <button type="submit" class="submit-btn" id="subcontractSubmitBtn">
+                                    <span id="subcontractSubmitText">Submit Prequalification</span>
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -2085,20 +2228,17 @@ Results-driven construction manager with years of experience in overseeing const
                     
                     <div class="contact-form">
                         <h3>Send Us a Message</h3>
-                        <form>
+                        <form name="contact" method="POST" data-netlify="true" id="contactForm">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Name" required>
+                                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Your Email" required>
+                                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Subject">
+                                <textarea name="message" class="form-control" placeholder="Your Message" rows="5" required></textarea>
                             </div>
-                            <div class="form-group">
-                                <textarea class="form-control" placeholder="Your Message" rows="5" required></textarea>
-                            </div>
-                            <button type="submit" class="btn">Send Message</button>
+                            <button type="submit" class="submit-btn">Send Message</button>
                         </form>
                     </div>
                 </div>
@@ -2225,7 +2365,7 @@ Results-driven construction manager with years of experience in overseeing const
         });
         
         // Form Submission
-        const contactForm = document.querySelector('form');
+        const contactForm = document.getElementById('contactForm');
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -2378,6 +2518,13 @@ Results-driven construction manager with years of experience in overseeing const
                         otherDropdown.classList.remove('active');
                     }
                 });
+                
+                // If opening, scroll to the dropdown
+                if (dropdown.classList.contains('active')) {
+                    setTimeout(() => {
+                        dropdown.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 300);
+                }
             });
         });
         
@@ -2400,12 +2547,109 @@ Results-driven construction manager with years of experience in overseeing const
             }
         }
         
-        // Form submission function
+        // Enhanced form submission function with validation and scrolling
         function submitForm(event, formType) {
             event.preventDefault();
-            alert(`Thank you for your ${formType}. We will review your information and get back to you soon.`);
-            event.target.reset();
+            
+            const form = event.target;
+            const submitBtn = form.querySelector('.submit-btn');
+            const submitText = form.querySelector('.submit-btn span');
+            const successMessage = form.querySelector('.success-message');
+            
+            // Validate form
+            if (!validateForm(form)) {
+                // Scroll to first error
+                const firstError = form.querySelector('.error-message:not([style*="display: none"])');
+                if (firstError) {
+                    const formGroup = firstError.closest('.form-group');
+                    formGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+            
+            // Show loading state
+            submitText.innerHTML = '<span class="loading"></span>Submitting...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Reset form
+                form.reset();
+                
+                // Reset button
+                submitText.textContent = 'Submit Application';
+                submitBtn.disabled = false;
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }, 2000);
         }
+        
+        // Form validation function
+        function validateForm(form) {
+            let isValid = true;
+            
+            // Get all required fields
+            const requiredFields = form.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                const errorElement = document.getElementById(`${field.id}Error`);
+                
+                // Reset error state
+                field.classList.remove('error');
+                if (errorElement) errorElement.style.display = 'none';
+                
+                // Check if field is empty
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    if (errorElement) errorElement.style.display = 'block';
+                    isValid = false;
+                }
+                
+                // Additional validation for specific field types
+                if (field.type === 'email' && field.value.trim()) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(field.value)) {
+                        field.classList.add('error');
+                        if (errorElement) errorElement.style.display = 'block';
+                        isValid = false;
+                    }
+                }
+                
+                if (field.type === 'tel' && field.value.trim()) {
+                    const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
+                    if (!phoneRegex.test(field.value)) {
+                        field.classList.add('error');
+                        if (errorElement) errorElement.style.display = 'block';
+                        isValid = false;
+                    }
+                }
+            });
+            
+            return isValid;
+        }
+        
+        // Auto-scroll to focused form fields
+        document.addEventListener('focusin', function(e) {
+            if (e.target.matches('.form-control')) {
+                const formGroup = e.target.closest('.form-group');
+                if (formGroup) {
+                    // Only scroll if the field is not fully visible
+                    const rect = formGroup.getBoundingClientRect();
+                    if (rect.top < 100 || rect.bottom > window.innerHeight - 100) {
+                        formGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            }
+        });
         
         // Initialize page based on URL hash
         window.addEventListener('DOMContentLoaded', () => {
